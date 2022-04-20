@@ -30,12 +30,35 @@ docker_${FUNC_NAME##*/}() {
         -v /media:/media \\
         --hostname ${IMGNAME:-"test-a"} \\
         -w \$(realpath \$(pwd)) \\
+        -e REPO_URL=\${REPO_URL:-'https://gerrit-googlesource.proxy.ustclug.org/git-repo'} \\
         ${IMGTAG} \\
         \$@
     }
+
+repo-init() {
+local REPO_URL='https://gerrit-googlesource.proxy.ustclug.org/git-repo'
+\${REPO:-"docker_${FUNC_NAME##*/}"} init \$@
+}
+
+repo-sync() {
+local REPO_URL='https://gerrit-googlesource.proxy.ustclug.org/git-repo'
+while true
+do
+    \${REPO:-"docker_${FUNC_NAME##*/}"} sync -c --no-tags --no-clone-bundle -j\`nproc\`
+    [[ \$? -ne 0 ]] || break
+done
+}
 EOF
 
 echo -e "First, exec: \n\
     source $install_path"
 echo -e "Then, use: \n\
     [ENTRY=<entry>] docker_${FUNC_NAME##*/} [arg1]..."
+
+echo -e "you can also use *repo-init* for docker_${FUNC_NAME##*/} init, e.g.\n\
+    repo-init -u <git_repo>  -b <branch> -m <manifest_xml>\n\
+and\n\
+    *repo-sync* for docker_${FUNC_NAME##*/} sync\n\n\
+their are little differences between them, check the definitions by:\n\
+    type repo-init\n\
+    type repo-sync"

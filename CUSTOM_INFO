@@ -4,14 +4,15 @@
 # * maintainer [optional]
 
 # default IMGNAME: test-a
-IMGNAME=
+IMGNAME=repo-a
 
 # default VERSION: latest
 VERSION=
 
 PKGS="\
-     vim \
-     ctags \
+     git \
+     python3 \
+     openssh  \
 "
 maintainer="alexlee alexander.lee.cn@gmail.com"
 
@@ -20,4 +21,4 @@ maintainer="alexlee alexander.lee.cn@gmail.com"
 # * ENTRY
 
 # default entrypoint: /bin/bash
-ENTRY="vim"
+ENTRY="repo"
