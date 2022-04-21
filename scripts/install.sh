@@ -25,7 +25,7 @@ docker_${FUNC_NAME##*/}() {
         -it \\
         --rm \\
         -u $(id -u) \\
-        --entrypoint \${ENTRY:-"${ENTRY}"} \\
+        --entrypoint ${ENTRY} \\
         -v /home/${USERNAME}:/home/${USERNAME} \\
         -v /media:/media \\
         --hostname ${IMGNAME:-"test-a"} \\
@@ -53,7 +53,7 @@ EOF
 echo -e "First, exec: \n\
     source $install_path"
 echo -e "Then, use: \n\
-    [ENTRY=<entry>] docker_${FUNC_NAME##*/} [arg1]..."
+    docker_${FUNC_NAME##*/} [arg1]..."
 
 echo -e "you can also use *repo-init* for docker_${FUNC_NAME##*/} init, e.g.\n\
     repo-init -u <git_repo>  -b <branch> -m <manifest_xml>\n\

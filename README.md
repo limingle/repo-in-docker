@@ -25,7 +25,7 @@
 <pre>First, exec: 
     source /home/alice/.local/docker_env/repo_repo-a_env
 Then, use: 
-    [ENTRY=&lt;entry&gt;] docker_repo [arg1]...
+    docker_repo [arg1]...
 you can also use *repo-init* for docker_repo init, e.g.
     repo-init -u &lt;git_repo&gt; -b &lt;branch&gt; -m &lt;manifest_xml&gt;
 and
