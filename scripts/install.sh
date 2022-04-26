@@ -26,7 +26,7 @@ docker_${FUNC_NAME##*/}() {
         --rm \\
         -u $(id -u) \\
         --entrypoint ${ENTRY} \\
-        -v /home/${USERNAME}:/home/${USERNAME} \\
+        -v /home/\${USERNAME}:/home/\${USERNAME} \\
         -v /media:/media \\
         --hostname ${IMGNAME:-"test-a"} \\
         -w \$(realpath \$(pwd)) \\
