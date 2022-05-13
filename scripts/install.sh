@@ -17,7 +17,9 @@ install_path=${install_prefix}/docker_env
 
 FUNC_NAME=${FUNC_ALIAS:-${ENTRY:-bash}}
 
-install_path=${install_path}/${FUNC_NAME##*/}_${IMGNAME:-"test-a"}_env
+install_name=${FUNC_NAME##*/}_${IMGNAME:-"test-a"}_env
+
+install_path=${install_path}/${install_name}
 
 cat <<EOF > ${install_path}
 docker_${FUNC_NAME##*/}() {
@@ -48,6 +50,17 @@ do
     [[ \$? -ne 0 ]] || break
 done
 }
+
+PASS=$RANDOM
+if [[ "\${BASH_ARGV0##*/}" != "${install_name}" ]]; then
+    bash \${BASH_ARGV} \${PASS};
+elif [[ "\${BASH_ARGV}" == "\${PASS}" ]]; then
+    echo -e "\033[1;3;32m""command available:""\033[0;34m"
+    typeset -f | awk '/ \(\) \$/ {print " \033[1;32m"\$1"\033[0;34m"}'
+else
+    echo -e "\033[1;3;32m""USAGE:""\033[0;34m"
+    echo -e "\$ \033[1;32m""source \${BASH_ARGV0}""\033[0;34m"
+fi
 EOF
 
 echo -e "First, exec: \n\
