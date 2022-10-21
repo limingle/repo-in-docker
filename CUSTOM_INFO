@@ -13,6 +13,7 @@ PKGS="\
      git \
      python3 \
      openssh  \
+     gnupg  \
 "
 maintainer="alexlee alexander.lee.cn@gmail.com"
 
